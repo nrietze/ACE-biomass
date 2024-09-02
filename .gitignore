@@ -1,3 +1,9 @@
+# tif files (save space)
+**/*.tif
+**/*.tfw
+**/*.ovr
+**/*.xml
+
 # History files
 .Rhistory
 .Rapp.history

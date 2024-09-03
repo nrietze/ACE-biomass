@@ -212,15 +212,22 @@ rect_data_v <- data.frame(
 
 p2 <- ggplot() +
   # draw square boxes
+  geom_spatvector(data = buffered_points,color = "white", fill = NA) + #draw all artificial boxes to scale plot like the other
   geom_spatvector(data = buffered_points[pos_cent,],color = "black", fill = NA, 
                   linewidth = 2) +  
   geom_spatvector(data = random_squares,color = "blue", fill = NA, 
                   linewidth = 1) +
+  geom_text( aes(x = geom(centroids(random_squares[1]))[3] +.5,
+                 y = geom(centroids(random_squares[1]))[4] -.8),
+             label = "25 cm x 25 cm subplot", fontface = "bold", color = 'blue') +
   # draw points
   geom_spatvector(data = plot_locations, color = "black", 
                   size = 2) +
   geom_spatvector(data = plot_locations, color = "black", 
                   shape = 4, size = 5) +
+  geom_text(aes(x = geom(plot_locations)[3] +.5,
+                y = geom(plot_locations)[4] +.5),
+            label = "Plot center", fontface = "bold", color = 'black') + 
   # horizontal scale bar
   geom_rect(data = rect_data_h, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), 
           fill = 'black') +
@@ -236,7 +243,7 @@ p2 <- ggplot() +
 
 
 ## c) Create final figure ----
-pg <- cowplot::plot_grid(p1,p2, nrow = 2,
+pg <- cowplot::plot_grid(p2,p1, nrow = 2,
                          labels = c("a)","b)") # add subplot labels
                          )
 

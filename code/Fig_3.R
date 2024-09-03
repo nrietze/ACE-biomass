@@ -185,7 +185,10 @@ biom_plots <- lapply(r_biom,PlotRasters, variable = vars[3])
 unc_plots <- lapply(r_unc,PlotRasters, variable = vars[4])
 
 ## Arrange site plots ----
-varnames <- c("Land cover","Vegetation cover","Biomass estimation","Uncertainty")
+varnames <- c("Land Cover Class",
+              "Fractional Vegetation Cover",
+              "Biomass Estimate",
+              "Biomass Uncertainty")
 
 vize_id <- 1
 vjust_sub <- 7

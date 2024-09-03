@@ -185,41 +185,27 @@ biom_plots <- lapply(r_biom,PlotRasters, variable = vars[3])
 unc_plots <- lapply(r_unc,PlotRasters, variable = vars[4])
 
 ## Arrange site plots ----
-varnames <- c("Land Cover Class",
-              "Fractional Vegetation Cover",
-              "Biomass Estimate",
-              "Biomass Uncertainty")
+varnames <- c("Land Cover\nClass",
+              "Fractional\nVegetation Cover",
+              "Biomass\nEstimate",
+              "Biomass\nUncertainty")
 
 vize_id <- 1
 vjust_sub <- 7
+
 vize_row <- plot_grid(
    class_plots[[vize_id]] +
-     labs(subtitle = varnames[1]) + 
-     theme(plot.subtitle = element_text(vjust = vjust_sub,
-                                        size = font_size,
-                                        face = "bold")), 
+     labs(subtitle = " ") + 
+     theme(legend.position="none"),
    fcov_plots[[vize_id]] +
-     # labs(subtitle = " ") + 
-     labs(subtitle = varnames[2]) + 
-    theme(legend.position="none",
-          plot.subtitle = element_text(vjust = vjust_sub,
-                                       size = font_size,
-                                       face = "bold")),
+     labs(subtitle = " ") + 
+     theme(legend.position="none"),
   biom_plots[[vize_id]] +
-    # labs(subtitle = " ") + 
-    labs(subtitle = varnames[3]) + 
-    theme(legend.position="none",
-          plot.subtitle = element_text(vjust = vjust_sub,
-                                       size = font_size,
-                                       face = "bold")),
+    labs(subtitle = " ") + 
+    theme(legend.position="none"),
   unc_plots[[vize_id]] +
-    # labs(subtitle = " ") + 
-    labs(subtitle = varnames[4]) + 
-    theme(legend.position="none",
-          plot.subtitle = element_text(vjust = vjust_sub,
-                                       size = font_size,
-                                       face = "bold")),
-  # labels = c("a)","b)","c)","d)"), label_size = font_size,
+    labs(subtitle = " ") + 
+    theme(legend.position="none"),
   ncol = 4
   )
 
@@ -342,19 +328,38 @@ leg_row <- ggdraw() +
   # draw_plot(leg_row, x = 0.05, y = 0, width = 0.95, height = 1)
   draw_plot(leg_row, x = 0, y = 0, width = 1, height = 0.95)
 
+hj <- 0.5
+title <- ggdraw() + 
+  draw_label(varnames[1],fontface = 'bold',x = 0.125,
+             hjust = hj, size = font_size) +
+  draw_label(varnames[2],fontface = 'bold',x = 0.375,
+             hjust = hj, size = font_size) +
+  draw_label(varnames[3],fontface = 'bold',x = 0.625,
+             hjust = hj, size = font_size) +
+  draw_label(varnames[4],fontface = 'bold',x = 0.875,
+             hjust = hj, size = font_size) +
+  theme(
+    # add margin on the left of the drawing canvas,
+    # so title is aligned with left edge of first plot
+    plot.margin = margin(80, 0, 0, 7)
+  )
+
 ## Build final composition ----
-pg <- plot_grid(vize_row,pioneer_row,ued_row,leg_row,
-                nrow = 4, 
+pg <- plot_grid(title,vize_row,pioneer_row,ued_row,leg_row,
+                nrow = 5, 
                 label_x = 0.01,
                 hjust = 0,vjust = 2.5,
-                labels = c("a) Vize",
+                labels = c("",
+                           "a) Vize",
                            "b) Pioneer",
-                           "c) Uedineniya"),
+                           "c) Uedineniya",
+                           ""),
                 label_size = font_size,
-                rel_heights = c(1,1,1,.2))
+                rel_heights = c(.3,1,1,1,.2))
 
 # export PNG
 ggsave2(pg,
         filename = paste0(FIG_PATH,"Fig_3.png"),
         device = png, type = "cairo",
-          bg = 'white',width = 12.5, height = 22.5)
+          bg = 'white',width = 12.5, height = 23)
+

@@ -1,0 +1,128 @@
+
+```{r}
+# Plot-level in-situ species richness (x) and in-situ plot-level (mean of 3 subplots) biomass (y) relationships
+
+library(ggplot2)
+library(ggthemes)
+
+# Load data
+data <- read.csv("species_biomass_per_plot.csv")
+
+```
+
+
+```{r}
+# Fit linear models
+Moss_model <- lm(Moss_biomass ~ Moss_richness, data = data)
+Lichen_model <- lm(Lichen_biomass ~ Lichen_richness, data = data)
+Forb_model <- lm(Forb_biomass ~ Forb_richness, data = data)
+Graminoid_model <- lm(Graminoid_biomass ~ Graminoid_richness, data = data)
+Total_model <- lm(Live_biomass ~ Total_richness, data = data)
+
+# Calculate R^2, p-values, and F-values for each model
+Moss_summary <- summary(Moss_model)
+Moss_r2 <- round(Moss_summary$r.squared, 2)
+Moss_p_value <- round(Moss_summary$coefficients[2, 4], 4)
+Moss_f_value <- Moss_summary$fstatistic[1]
+
+Lichen_summary <- summary(Lichen_model)
+Lichen_r2 <- round(Lichen_summary$r.squared, 2)
+Lichen_p_value <- round(Lichen_summary$coefficients[2, 4], 4)
+Lichen_f_value <- Lichen_summary$fstatistic[1]
+
+Forb_summary <- summary(Forb_model)
+Forb_r2 <- round(Forb_summary$r.squared, 2)
+Forb_p_value <- round(Forb_summary$coefficients[2, 4], 4)
+Forb_f_value <- Forb_summary$fstatistic[1]
+
+Graminoid_summary <- summary(Graminoid_model)
+Graminoid_r2 <- round(Graminoid_summary$r.squared, 2)
+Graminoid_p_value <- round(Graminoid_summary$coefficients[2, 4], 4)
+Graminoid_f_value <- Graminoid_summary$fstatistic[1]
+
+Total_summary <- summary(Total_model)
+Total_r2 <- round(Total_summary$r.squared, 2)
+Total_p_value <- round(Total_summary$coefficients[2, 4], 4)
+Total_f_value <- Total_summary$fstatistic[1]
+
+# Print results
+cat("Moss: R^2 =", Moss_r2, ", p-value =", Moss_p_value, ", F-value =", Moss_f_value, "\n")
+cat("Lichen: R^2 =", Lichen_r2, ", p-value =", Lichen_p_value, ", F-value =", Lichen_f_value, "\n")
+cat("Forb: R^2 =", Forb_r2, ", p-value =", Forb_p_value, ", F-value =", Forb_f_value, "\n")
+cat("Graminoid: R^2 =", Graminoid_r2, ", p-value =", Graminoid_p_value, ", F-value =", Graminoid_f_value, "\n")
+cat("Total: R^2 =", Total_r2, ", p-value =", Total_p_value, ", F-value =", Total_f_value, "\n")
+```
+
+
+
+```{r}
+# Create labels for legend
+Moss_label <- sprintf("Bryophytes\nR² = %.2f, p = %.4f", Moss_r2, Moss_p_value)
+Lichen_label <- sprintf("Lichens\nR² = %.2f, p = %.4f", Lichen_r2, Lichen_p_value)
+Forb_label <- sprintf("Forbs\nR² = %.2f, p = %.4f", Forb_r2, Forb_p_value)
+Graminoid_label <- sprintf("Graminoids\nR² = %.2f, p = %.4f", Graminoid_r2, Graminoid_p_value)
+Total_label <- sprintf("Total\nR² = %.2f, p = %.4f", Total_r2, Total_p_value)
+
+
+# Customize colors
+trend_line_color_Moss <- "#8FBC8F"        # Color for Moss
+trend_line_color_Lichen <- "burlywood"    # Color for Lichen
+trend_line_color_Forb <- "#009E73"        # Color for Forb
+trend_line_color_Graminoid <- "cadetblue" # Color for Graminoid
+trend_line_color_Total <- "blue4"      # Color for Total
+```
+
+
+```{r}
+# Create a data frame for legend entries
+legend_data <- data.frame(
+  category = c("Moss", "Lichen", "Forb", "Graminoid", "Total"),
+  color = c( trend_line_color_Moss, trend_line_color_Lichen,
+             trend_line_color_Forb, trend_line_color_Graminoid,
+            trend_line_color_Total),
+  label = c(Forb_label, Graminoid_label, Lichen_label, Moss_label, Total_label)
+)
+
+
+# Create the plot
+plot <- ggplot(data) +
+  geom_point(aes(x = Moss_richness, y = Moss_biomass, color = "Moss")) +
+  geom_smooth(aes(x = Moss_richness, y = Moss_biomass, color = "Moss", fill = "Moss"), 
+              method = 'lm', se = TRUE, alpha = 0.003, linetype = "dotted") +
+  geom_point(aes(x = Lichen_richness, y = Lichen_biomass, color = "Lichen")) +
+  geom_smooth(aes(x = Lichen_richness, y = Lichen_biomass, color = "Lichen", fill = "Lichen"), 
+              method = 'lm', se = TRUE, alpha = 0.3) +
+  geom_point(aes(x = Forb_richness, y = Forb_biomass, color = "Forb")) +
+  geom_smooth(aes(x = Forb_richness, y = Forb_biomass, color = "Forb", fill = "Forb"), 
+              method = 'lm', se = TRUE, alpha = 0.003, linetype = "dotted") +
+  geom_point(aes(x = Graminoid_richness, y = Graminoid_biomass, color = "Graminoid")) +
+  geom_smooth(aes(x = Graminoid_richness, y = Graminoid_biomass, color = "Graminoid", fill = "Graminoid"), 
+              method = 'lm', se = TRUE, alpha = 0.3) +
+  geom_point(aes(x = Total_richness, y = Total_biomass, color = "Total")) +
+  geom_smooth(aes(x = Total_richness, y = Total_biomass, color = "Total", fill = "Total"), 
+              method = 'lm', se = TRUE, alpha = 0.003, linetype = "dotted") +
+  scale_color_manual(values = setNames(legend_data$color, legend_data$category), 
+                     name = " ",
+                     labels = legend_data$label) +
+  scale_fill_manual(values = setNames(legend_data$color, legend_data$category), 
+                    name = " ",
+                    labels = legend_data$label) +
+  labs(x = "Species richness per plot", y = "Mean live biomass (g)", color = "Category", fill = "Category") +
+  theme_minimal() +
+  theme(legend.position = "bottom", panel.border = element_rect(colour = "black", fill=NA, size = 0.5)) +
+  coord_cartesian(ylim=c(0, 30))
+
+
+
+plot <- plot + 
+  guides(color = guide_legend(nrow = 2, byrow = TRUE),
+         fill = guide_legend(nrow = 2, byrow = TRUE)) +
+  theme(legend.position = "bottom")
+
+# Print the plot
+print(plot)
+```
+
+
+
+

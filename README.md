@@ -1,5 +1,5 @@
 # Code and documentation
-This repository contains the code and output for Zemlianskii et al. (in prep.): Finding northernmost baselines: vegetation cover predicts biomass better than NDVI in the Eurasian polar desert islands.
+This repository contains the code and output for Zemlianskii et al. (in prep.): Finding northernmost baselines: high variability of landscape-level biomass on Eurasian polar desert islands.
 
 > [!WARNING]
 > Update when officially done.
@@ -63,8 +63,7 @@ Code development and maintenance: Vitalii Zemlianskii ([vitalii.zemlianskii@uzh.
 > [!WARNING]
 > Update when officially done.
 
-From the manuscript:
-*V.Z. was supported through the GRANT XYZ, an ESA PRODEX project (contract no. 4000133711).*
+This research used data collected during the Arctic Century Expedition, a joint initiative of the Swiss Polar Institute (SPI), Antarctic and Arctic Research Institute (AARI) and Helmholtz Centre for Ocean Research Kiel (GEOMAR) and supported by the Swiss Polar Foundation. We are grateful to Heidemarie Kassens, Mikhail Makhotin, Vasiliy Povazhnyi for their leadership and all expedition members for their company and support. This study was supported by a Swiss Government Excellence Scholarship (2019.0075). We thank Tatiana Koroleva, Vladislav Petrovsky, Irina Urbanavichene, Alexey Potemkin (Komarov Botanical Institute RAS) and Anastasia Kurka for their help with species identification. We thank Tatiana Nosova, Artem Fedorov, Dmitrii Botev and Arina Goluzina for their support with biomass measurements.
 
 [to top](https://github.com/nrietze/ACE-biomass/main/README.md)
 <!--- ## License
@@ -75,7 +74,7 @@ From the manuscript:
 When citing elements in this repository, please cite as:
 
 V. Zemlianskii, K. Ermokhina, N. Rietze, R. Heim, J. Assmann, J. Rüthi, N. Loginova, G. Schaepman-Strub (in prep.). 
-Finding northernmost baselines: vegetation cover predicts biomass better than NDVI in the Eurasian polar desert islands. 
+Finding northernmost baselines: high variability of landscape-level biomass on Eurasian polar desert islands. 
 
 [to top](https://github.com/nrietze/SiberiaFires/main/README.md)
 

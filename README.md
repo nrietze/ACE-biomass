@@ -3,7 +3,7 @@ This repository contains the code and output for Zemlianskii et al. (in prep.): 
 
 > [!WARNING]
 > Update when officially done.
- > The necessary data is publicly available under [![DOI](https://img.shields.io/badge/DRYAD_repo-blue)](https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw).
+ > The necessary data is publicly available under [![DOI](https://img.shields.io/badge/DOI_dryaddoi-blue)](https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw).
 
 ## Repository structure:
 Here is the structure of this repo, files have been excluded from this tree for readability.

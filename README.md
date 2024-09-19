@@ -3,47 +3,33 @@ This repository contains the code and output for Zemlianskii et al. (in prep.): 
 
 > [!WARNING]
 > Update when officially done.
- > The necessary data is publicly available under [![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.12650945-blue)](https://doi.org/10.5281/zenodo.12650945).
+ > The necessary data is publicly available under [![DOI](https://img.shields.io/badge/DRYAD_repo-blue)](https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw).
 
 ## Repository structure:
-> [!WARNING]
-> Update when officially done.
 Here is the structure of this repo, files have been excluded from this tree for readability.
 
 ```bash
 ├───code
-│   │
-│   │  ZOIB_model.R
-│   │
-│   ├───classification
-│   │   │  prep.R
-│   │   │  predict_burned_area.R
-│   │   │  predict_water.py
-│   │
-│   └───figures_and_tables
-│          Table_1.R
-│          figure_1.R
-│          figure_2.R
-│          figure_3.R
-│    
 ├───data
-│   └───geodata
-│       ├───feature_layers
-│       └───raster
-│
-├───figures  
-│
-└───tables
+│   ├───feature_layers
+│   ├───raster
+│   │   ├───binary
+│   │   ├───binary_cut
+│   │   ├───fcover
+│   │   ├───prediction
+│   │   └───uncertainty
+│   └───tables
+└───figures
 ```
 
-- The scripts in `classification` are used to prepare the PlanetScope imagery and run the random forest classification.
-  - `prep.R` is used to crop, rename and prepare raster files for the image classification.
-  - `predict_burned_area.R` is used to execute the classification of burned areas, performing validation and predicting the burned area maps.
-- The scripts in `figures_and_tables` are used to generate the main and supplementary figures as well as the supporting tables and are named appropriately.
-- The script `ZOIB_model.R` contains the code for the zero-one inflated beta regression. 
-- The folder `data` is empty and should contain the data that can be downloaded from Zenodo (see link on top).
+- All R scripts used in this study are in the folder `code`.
+  - `predict_classes.R` runs the drone imagery classification.
+  - `Regressions_cover_biomass.R` contains the code for the statistical analysis of the relationships between biomass, species richness, in-situ cover and remotely sensed cover.
+  - `mean_subplot_biomass_to_species_richness.Rmd` is used to study and plot the observed biomass and species richness of plant functional types .
+  - `get_site_fcover.R` is used to compute the fractional vegetation cover from the drone imagery for the focal window analysis and extrapolation to landscape-scale.
+  - The scripts used to produce Figures 3, A1, and A3 are named accordingly.
+- The folder `data` and its subdirectories are empty and should contain the data that can be downloaded from Dryad (see link on top).
 - The folder `figures` contains the figures that are produced in the correspoinding scripts.
-- The folder `tables` contains the tables that are produced in the correspoinding scripts.
 
 [to top](https://github.com/nrietze/ACE-biomass/main/README.md)
 
@@ -60,15 +46,7 @@ Code development and maintenance: Vitalii Zemlianskii ([vitalii.zemlianskii@uzh.
 [to top](https://github.com/nrietze/ACE-biomass/main/README.md)
 
 ## Acknowledgements
-> [!WARNING]
-> Update when officially done.
-
 This research used data collected during the Arctic Century Expedition, a joint initiative of the Swiss Polar Institute (SPI), Antarctic and Arctic Research Institute (AARI) and Helmholtz Centre for Ocean Research Kiel (GEOMAR) and supported by the Swiss Polar Foundation. We are grateful to Heidemarie Kassens, Mikhail Makhotin, Vasiliy Povazhnyi for their leadership and all expedition members for their company and support. This study was supported by a Swiss Government Excellence Scholarship (2019.0075). We thank Tatiana Koroleva, Vladislav Petrovsky, Irina Urbanavichene, Alexey Potemkin (Komarov Botanical Institute RAS) and Anastasia Kurka for their help with species identification. We thank Tatiana Nosova, Artem Fedorov, Dmitrii Botev and Arina Goluzina for their support with biomass measurements.
-
-[to top](https://github.com/nrietze/ACE-biomass/main/README.md)
-<!--- ## License
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
--->
 
 ## Citation
 When citing elements in this repository, please cite as:
@@ -76,11 +54,9 @@ When citing elements in this repository, please cite as:
 V. Zemlianskii, K. Ermokhina, N. Rietze, R. Heim, J. Assmann, J. Rüthi, N. Loginova, G. Schaepman-Strub (in prep.). 
 Finding northernmost baselines: high variability of landscape-level biomass on Eurasian polar desert islands. 
 
-[to top](https://github.com/nrietze/SiberiaFires/main/README.md)
+[to top](https://github.com/nrietze/ACE-biomass/main/README.md)
 
 ## License
-> [!WARNING]
-> Update to MIT when officially done.
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-[to top](https://github.com/nrietze/SiberiaFires/main/README.md)
+[to top](https://github.com/nrietze/ACE-biomass/main/README.md)

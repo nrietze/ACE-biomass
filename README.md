@@ -1,5 +1,5 @@
 # Code and documentation
-This repository contains the code and output for Zemlianskii et al. (in prep.): Finding northernmost baselines: high variability of landscape-level biomass on Eurasian polar desert islands.
+This repository contains the code and output for Zemlianskii et al. (in prep.): Finding northernmost baselines: high variability of above-ground biomass on Eurasian polar desert islands.
 
 > [!WARNING]
 > Update when officially done.
@@ -52,7 +52,7 @@ This research used data collected during the Arctic Century Expedition, a joint 
 When citing elements in this repository, please cite as:
 
 V. Zemlianskii, K. Ermokhina, N. Rietze, R. Heim, J. Assmann, J. Rüthi, N. Loginova, G. Schaepman-Strub (in prep.). 
-Finding northernmost baselines: high variability of landscape-level biomass on Eurasian polar desert islands. 
+Finding northernmost baselines: high variability of above-ground biomass on Eurasian polar desert islands. 
 
 [to top](https://github.com/nrietze/ACE-biomass/main/README.md)
 

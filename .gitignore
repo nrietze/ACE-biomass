@@ -4,6 +4,8 @@
 **/*.ovr
 **/*.xml
 
+data/
+
 # History files
 .Rhistory
 .Rapp.history

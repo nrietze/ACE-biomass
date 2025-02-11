@@ -4,9 +4,7 @@ library(ggplot2)
 library(ggthemes)
 library(gridExtra)
 
-#data <- read.csv("C:/Users/Vitalii/Desktop/Arctic_century_analysis/biomass_cover_reformated.csv")
-
-data <- read.csv(file.choose())
+data <- read.csv("data/tables/biomass_cover_reformated_drone_sites_only_newS2data.csv")
 
 # Filter out the specified sites without drone data
 data <- subset(data, !(Site %in% c("GrahamBell", "OctRevCentre", "Bolshevik", "Komsomolets")))
@@ -19,16 +17,24 @@ lm_biomass_cover <- lm(formula = Live_biomass ~ Cover_live, data = data)
 summary(lm_biomass_cover)
 
 # lm stdev Sentinel2
-lm_biomass_NDVI_sentinel <- lm(formula = Live_biomass ~ Sentinel2_stdev, data = data)
+lm_biomass_NDVI_sentinel_old <- lm(formula = Live_biomass ~ Sentinel2_stdev, data = data) # with old S2 data
+lm_biomass_NDVI_sentinel <- lm(formula = Live_biomass ~ s2_sd_ndvi, data = data) # with better S2 data
 summary(lm_biomass_NDVI_sentinel)
+
+lm_biomass_SAVI_sentinel <- lm(formula = Live_biomass ~ s2_sd_savi, data = data) # with S2 SAVI
+summary(lm_biomass_SAVI_sentinel)
 
 # lm stdev drone
 lm_biomass_NDVI_drone <- lm(formula = Live_biomass ~ drone_stdev, data = data)
 summary(lm_biomass_NDVI_drone)
 
 # lm mean Sentinel2
-lm_biomass_NDVI_sentinel_mean <- lm(formula = Live_biomass ~ Sentinel2_mean, data = data)
+lm_biomass_NDVI_sentinel_mean_old <- lm(formula = Live_biomass ~ Sentinel2_mean, data = data) # with old S2 data
+lm_biomass_NDVI_sentinel_mean <- lm(formula = Live_biomass ~ s2_mean_ndvi, data = data) # with better S2 data
 summary(lm_biomass_NDVI_sentinel_mean)
+
+lm_biomass_SAVI_sentinel_mean <- lm(formula = Live_biomass ~ s2_mean_savi, data = data) # with SAVI
+summary(lm_biomass_SAVI_sentinel_mean)
 
 # lm mean drone
 lm_biomass_NDVI_drone_mean <- lm(formula = Live_biomass ~ drone_mean, data = data)

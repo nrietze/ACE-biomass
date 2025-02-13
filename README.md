@@ -2,7 +2,7 @@
 This repository contains the code and output for Zemlianskii et al. (in prep.): Finding northernmost baselines: high variability of above-ground biomass on Eurasian polar desert islands.
 
 ## Data availability:
-Full geobotanical plots as well as all biomass, cover and species richness data are available through Dryad [https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw](https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw). Species data table is additionally provided in the Appendix (Appendix Table 5). The full plots will be also made available upon publication through the Arctic Vegetation Archive (Zemlianskii et al., 2023; [https://avarus.space/](https://avarus.space/)). 
+Full geobotanical plots as well as all biomass, cover and species richness data are available through Dryad [https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw](https://datadryad.org/stash/share/SqYWvX6K7085r4-3NtiBl10JwYfS3AdWRtX3jOTb5Uw). Species data table is additionally provided in the Appendix (Appendix Table 5). The full plots will be also made available upon publication through the Arctic Vegetation Archive (Zemlianskii et al., 2023; [https://avarus.space/](https://avarus.space/)). Sentinel-2 imagery can be freely downloaded from the Copernicus Dataspace Browser at [https://browser.dataspace.copernicus.eu/](https://browser.dataspace.copernicus.eu/).
 
 
 ## Repository structure:

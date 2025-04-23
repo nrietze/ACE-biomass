@@ -1,6 +1,9 @@
-# Script to plot Appendix Figure 3
-# 01.07.2024
-# Nils Rietze: nils.rietze@uzh.ch
+"
+Script to plot Appendix Figure 3 & 
+run quantile regression for Appendix Table 4
+created: 01.07.2024, edited: 23.04.2025
+Nils Rietze: nils.rietze@uzh.ch
+"
 
 library(dplyr)
 library(cowplot)
@@ -10,6 +13,9 @@ library(tidyterra)
 library(class)
 library(caret)
 library(terra)
+library(quantreg)
+library(broom)
+library(gt)
 
 # 1. LOAD DATA ----
 FIG_PATH <- "./figures/"
@@ -44,7 +50,7 @@ loadRast <- function(site, variable){
 
 rlist_class <- lapply(sites,loadRast,variable =  "cut")
 
-# 2. CONFIGURE POINT BUFFERING ----
+# 2. CALCULATE DRONE FCOVER ----
 
 buffer_radius <- 5 # in crs units (meters)
 
@@ -148,6 +154,9 @@ df_list <- lapply(rlist_class, get_composition, window = buffered_points)
 
 df_composition_points <- bind_rows(df_list)
 
+
+# 3. PLOT IN SITU vs. DRONE COVER ----
+
 custom_palette <- c(
    # viridis::viridis(n = 6),
    # viridis::mako(n = 3),   # for site 2
@@ -191,3 +200,42 @@ p <- df_composition_points %>%
 # export PNG
 ggsave(p,filename = paste0(FIG_PATH,"Fig_A3.png"),
         bg = 'white',width = 8, height = 8)
+
+
+# 3. QUANTILE REGRESSION in situ ~ drone ----
+quantiles <- seq(0.1,.9,.1)
+
+ggplot(df_composition_points,aes(x = fcover_vegetation, y = Cover_live)) +
+  geom_point() +
+  geom_quantile(quantiles = quantiles, method = "rq") +
+  xlim(0, 100) + ylim(0, 100) +
+  labs(y = "in situ fCover", x = "drone fCover", 
+       title = "10%-ile regressions") +
+  # facet_wrap(~Site) +
+  coord_fixed(ratio=1) +
+  theme_cowplot()
+
+
+qr_mod <- rq(Cover_live ~ fcover_vegetation,
+             tau = quantiles,
+             data = df_composition_points)
+summary(qr_mod)
+
+qr_mod0 <- rq(Cover_live~1,tau=0.9,data=df_composition_points)
+
+# Goodness of fit
+rho <- function(u,tau=.5)u*(tau - (u < 0))
+R1 <- 1 - qr_mod$rho/qr_mod0$rho
+
+tidy(qr_mod) %>% 
+  gt() %>% 
+  cols_label(
+    term = "Term",
+    estimate = "Estimate",
+    tau = "Quantile",
+  ) %>% 
+  fmt_number(decimals = 1) %>% 
+  tab_style(
+    style = cell_text(v_align = "top", weight = 'bold'),
+    locations = cells_column_labels()) %>% 
+  gtsave("figures/TableA4.html")

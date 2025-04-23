@@ -8,6 +8,7 @@ library(terra)
 library(grid)
 library(cowplot)
 library(colorspace)
+library(RColorBrewer)
 library(extrafont)
 library(ggtext)
 loadfonts(device = "win")
@@ -281,29 +282,32 @@ pioneer_row <- ggdraw() +
   #           size = font_size,fontface = "bold")
 
 ## Get legends and plot them ----
-legend_fcov <- get_legend(
+legend_fcov <- get_plot_component(
   fcov_plots[[pioneer_id]] + 
     # guides(color = guide_colourbar(barwidth=30,label.position="bottom")) +
     theme(legend.position = "bottom",
           legend.key.width=unit(35,"points"),
           legend.title = element_text(hjust = 0.5),
-          legend.box.margin = unit(c(0.4,0,.5,0), "cm"))
+          legend.box.margin = unit(c(0.4,0,.5,0), "cm")),
+  'guide-box-bottom', return_all = TRUE
 )
-legend_biom <- get_legend(
+legend_biom <- get_plot_component(
   biom_plots[[pioneer_id]] + 
     # guides(color = guide_colourbar(barwidth=30,label.position="bottom")) +
     theme(legend.position = "bottom",
           legend.key.width=unit(35,"points"),
           legend.title = element_text(hjust = 0.5),
-          legend.box.margin = unit(c(0.4,0,.5,0), "cm"))
+          legend.box.margin = unit(c(0.4,0,.5,0), "cm")),
+  'guide-box-bottom', return_all = TRUE
 )
-legend_unc <- get_legend(
+legend_unc <- get_plot_component(
   unc_plots[[pioneer_id]] + 
     # guides(color = guide_colourbar(barwidth=30,label.position="bottom")) +
     theme(legend.position = "bottom",
           legend.key.width=unit(35,"points"),
           legend.title = element_text(hjust = 0.5),
-          legend.box.margin = unit(c(0.4,0,.5,0), "cm"))
+          legend.box.margin = unit(c(0.4,0,.5,0), "cm")),
+  'guide-box-bottom', return_all = TRUE
 )
 
 n <- 9
@@ -345,14 +349,14 @@ title <- ggdraw() +
   )
 
 ## Build final composition ----
-pg <- plot_grid(title,vize_row,pioneer_row,ued_row,leg_row,
-                nrow = 5, 
+pg <- plot_grid(title,ued_row,pioneer_row,vize_row,leg_row,
+                nrow = 5,
                 label_x = 0.01,
                 hjust = 0,vjust = 2.5,
                 labels = c("",
-                           "a) Vize",
+                           "a) Uedineniya",
                            "b) Pioneer",
-                           "c) Uedineniya",
+                           "c) Vize",
                            ""),
                 label_size = font_size,
                 rel_heights = c(.3,1,1,1,.2))

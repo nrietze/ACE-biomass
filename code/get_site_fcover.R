@@ -122,7 +122,10 @@ get_composition <- function(rast_class,window){
                                      intersect_unique['filtered_id'],
                                      fun = fcover_fun) %>% 
       unnest_wider(col = 2) 
-    colnames(lc_composition) <- c("filtered_id", "fcover_substrate", "fcover_vegetation","prop_NA")
+    colnames(lc_composition) <- c("filtered_id", 
+                                  "fcover_vegetation",
+                                  "fcover_substrate",
+                                  "prop_NA")
     
     # Convert fractions to percent, add ID for full join later
     lc_composition_unique <- lc_composition %>% 
@@ -141,9 +144,6 @@ get_composition <- function(rast_class,window){
 
 # Get Fcovers in buffered points
 df_composition_points <- get_composition(rast_class,buffered_points)
-
-ggplot(data = df_composition_points,aes(x = Cover_live, y = fcover_vegetation,color = Subplot)) + 
-  geom_point()
 
 ggplot(data = df_composition_points,aes(x = Cover_live, y = fcover_vegetation,color = Subplot)) + 
   geom_line() +

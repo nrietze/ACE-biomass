@@ -1,8 +1,9 @@
-
 library(stats)
 library(ggplot2)
 library(ggthemes)
 library(gridExtra)
+library(quantreg)
+
 
 data <- read.csv("data/tables/biomass_cover_reformated_drone_sites_only_newS2data.csv")
 
@@ -10,7 +11,7 @@ data <- read.csv("data/tables/biomass_cover_reformated_drone_sites_only_newS2dat
 data <- subset(data, !(Site %in% c("GrahamBell", "OctRevCentre", "Bolshevik", "Komsomolets")))
 
 ###################################################################################
-# 0. LM and GLM #
+# 0. LM and GLM ====
 ###################################################################################
 # lm cover-biomass
 lm_biomass_cover <- lm(formula = Live_biomass ~ Cover_live, data = data)
@@ -100,7 +101,7 @@ residuals <- simulateResiduals(lm7_biomass_cover, plot = TRUE) #ok
 
 
 
-################# final models (no quadratic term, to avoid over fitting)
+### final models (no quadratic term, to avoid over fitting) ----
 
 lm1_biomass_cover <- lm(Live_biomass ~ Cover_live + Site + 
                           Cover_live:Site, data = data)
@@ -127,11 +128,7 @@ lm4_biomass_cover <- lm(Live_biomass ~ Site
 summary(lm4_biomass_cover) 
 anova(lm2_biomass_cover, lm4_biomass_cover) # F = 49.33, p = < 0.001 ***
 
-
-
-###############################################################################
-
-#glm
+# glm ----
 data$Site <- factor(data$Site)
 form.glmBIOMASS <- as.formula(Live_biomass ~ Cover_live + I(Cover_live^2) + Site)
 glm.BIOMASS.full <- glm(form.glmBIOMASS, data = data)
@@ -143,7 +140,7 @@ glm.BIOMASS.full <- glm(form.glmBIOMASS, data = data)
 summary(glm.BIOMASS.full)
 
 ###################################################################################
-# 1. Create the scatter plot with linear regression lines for each site separately#
+# 1. Create the scatter plot with linear regression lines for each site separately ====
 ###################################################################################
 # 1st plot just to have a look
 plot <- ggplot(data, aes(x=Cover_live, y=Live_biomass, color=Site)) +
@@ -206,7 +203,7 @@ plot <- ggplot(data, aes(x=Cover_live, y=Live_biomass, color=Site_label)) +
 print(plot)
 
 #######################################
-# all sites with low p-value combined##
+# all sites with low p-value combined ====
 #######################################
 data <- read.csv("C:/Users/Vitalii/Desktop/Arctic_century_analysis/biomass_cover_reformated.csv")
 # Filter to include only the sites with drone data
